@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Sitestyle.css">
+    <style>
+        .tabla-korul {
+            position: relative;
+            display: inline-block;
+            scale: 0.75;
+        }
+
+        .chooseSide, .waitSide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        table{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .color-selection button {
+            margin: 5px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>-->
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Sitestyle.css">
+    <script src="/client/Sitelogic.js"></script>
+    <script src="/client/socket.js"></script>
+</head>
+<body >
+
+<h1>Dáma</h1> 
+<p id="numOfTiles" class="displaydata">W: 12 / B: 12</p>
+<p id="currentPlayer" class="displaydata">Fekete kör</p>
+<p id="numOfPlayers" class="displaydata">Csatlakozott játékosok: 1/2</p>
+<p id="chosenColor" class="displaydata">Játékos színe: </p>
+
+<div class="tabla-korul">
+    <div class="chooseSide">
+        <p>Válaszd ki a színed:</p>
+        <div class="color-selection">
+            <button onclick="chooseColor('white')"><img src="imageref/Wtile.png" style="width: 100%; height: auto;"></button>
+            <button onclick="chooseColor('black')"><img src="imageref/Btile.png" style="width: 100%; height: auto;"></button>
+        </div>
+    </div>
+    <div class="waitSide">
+        <h1>Várakozás a másik játékos színválasztására!</h1>
+    </div>
+    <table>
+    <tr>    
+        <td><button class="tile" onclick="checkIfPress('11')"><img id="11" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w12" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('13')"><img id="13" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w14" src="imageref/white.png"></button></th>
+
+        <td><button class="tile" onclick="checkIfPress('15')"><img id="15" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w16" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('17')"><img id="17" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w18" src="imageref/white.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile"><img id="w21" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('22')"><img id="22" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w23" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('24')"><img id="24" src="imageref/Wtile.png"></button></th>
+
+        <td><button class="tile"><img id="w25" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('26')"><img id="26" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w27" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('28')"><img id="28" src="imageref/Wtile.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile" onclick="checkIfPress('31')"><img id="31" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w32" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('33')"><img id="33" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w34" src="imageref/white.png"></button></th>
+
+        <td><button class="tile" onclick="checkIfPress('35')"><img id="35" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w36" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('37')"><img id="37" src="imageref/Wtile.png"></button></th>
+        <td><button class="tile"><img id="w38" src="imageref/white.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile"><img id="w41" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('42')"><img id="42" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w43" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('44')"><img id="44" src="imageref/red.png"></button></th>
+
+        <td><button class="tile"><img id="w45" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('46')"><img id="46" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w47" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('48')"><img id="48" src="imageref/red.png"></button></th>        
+    </tr>
+
+
+
+    <tr>    
+        <td><button class="tile" onclick="checkIfPress('51')"><img id="51" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w52" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('53')"><img id="53" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w54" src="imageref/white.png"></button></th>
+
+        <td><button class="tile" onclick="checkIfPress('55')"><img id="55" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w56" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('57')"><img id="57" src="imageref/red.png"></button></th>
+        <td><button class="tile"><img id="w58" src="imageref/white.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile"><img id="w61" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('62')"><img id="62" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w63" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('64')"><img id="64" src="imageref/Btile.png"></button></th>
+
+        <td><button class="tile"><img id="w65" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('66')"><img id="66" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w67" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('68')"><img id="68" src="imageref/Btile.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile" onclick="checkIfPress('71')"><img id="71" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w72" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('73')"><img id="73" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w74" src="imageref/white.png"></button></th>
+
+        <td><button class="tile" onclick="checkIfPress('75')"><img id="75" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w76" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('77')"><img id="77" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w78" src="imageref/white.png"></button></th>        
+    </tr>
+
+    <tr>    
+        <td><button class="tile"><img id="w81" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('82')"><img id="82" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w83" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('84')"><img id="84" src="imageref/Btile.png"></button></th>
+
+        <td><button class="tile"><img id="w85" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('86')"><img id="86" src="imageref/Btile.png"></button></th>
+        <td><button class="tile"><img id="w87" src="imageref/white.png"></button></th>
+        <td><button class="tile" onclick="checkIfPress('88')"><img id="88" src="imageref/Btile.png"></button></th>        
+    </tr>
+</table> 
+</div>
+
+<!--CHAT HTML-->
+
+  <h3 class="clients-total" id="client-total"></h3>
+  <div class="main">
+    <div class="name">Chat</div>
+    <ul class="message-container" id="message-container"></ul>
+    <form class="message-form" id="message-form">
+      <input type="text" name="message" id="message-input" class="message-input" placeholder="Írd ide az üzenetet" />
+      <button type="submit" class="send-button">Küldés</button>
+    </form>
+  </div>
+
+</body>
+</html> 
